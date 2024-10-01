@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.AdvertisementVideosMapper" >
+  <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.AdvertisementVideos" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="video_id" property="videoId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="department" property="department" jdbcType="VARCHAR" />
+    <result column="video_cover_path" property="videoCoverPath" jdbcType="VARCHAR" />
+    <result column="title" property="title" jdbcType="VARCHAR" />
+    <result column="video_desc" property="videoDesc" jdbcType="VARCHAR" />
+    <result column="video_path" property="videoPath" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="BIGINT" />
+    <result column="comment_num" property="commentNum" jdbcType="BIGINT" />
+    <result column="forward_num" property="forwardNum" jdbcType="BIGINT" />
+    <result column="play_num" property="playNum" jdbcType="BIGINT" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="is_public" property="isPublic" jdbcType="TINYINT" />
+    <result column="tag" property="tag" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    select * from advertisement_videos where status = 1 and is_public = 1
+  </select>
+
+<!--    <select id="addLikeNum" parameterType="String">-->
+<!--      update advertisement_videos set like_num=like_num+1 where video_id=#{videoId}-->
+<!--    </select>-->
+
+<!--    <select id="reduceLikeNum" parameterType="String">-->
+<!--      update advertisement_videos set like_num=like_num-1 where video_id=#{videoId}-->
+<!--    </select>-->
+
+<!--    <select id="queryPublisherIdByVideoId" resultType="String">-->
+<!--      select user_id from advertisement_videos where video_id=#{videoId}-->
+<!--    </select>-->
+
+<!--    <select id="addCommentNum" parameterType="String">-->
+<!--      update advertisement_videos set comment_num=comment_num+1 where video_id=#{videoId}-->
+<!--    </select>-->
+
+</mapper>

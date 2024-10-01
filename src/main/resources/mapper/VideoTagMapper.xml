@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.VideoTagMapper" >
+    <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.VideoTag" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="content" property="content" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+    </resultMap>
+
+    <select id="queryAllVideoTag"  resultMap="BaseResultMap">
+        select content
+        from video_tag
+        where status = 0
+   </select>
+
+
+</mapper>

@@ -1,0 +1,13 @@
+.DS_Store
+.idea
+*.iml
+short-video.iml
+target/
+log/
+src/main/resources/application-personaldev.yml
+src/main/resources/application-aliyunprod.yml
+src/main/resources/application-yangshudev.yml
+src/main/resources/application-labdev.yml
+src/main/resources/application-chenliquandev.yml
+src/main/java/com/irdc/shortvideo/utils/aliyun/vod/VodAcsClient.java
+src/main/java/com/irdc/shortvideo/apiTest/sendMsg.java

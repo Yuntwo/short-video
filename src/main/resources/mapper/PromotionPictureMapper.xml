@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.PromotionPictureMapper" >
+    <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.PromotionPicture" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="id" property="id" jdbcType="VARCHAR" />
+        <result column="picture_url" property="pictureUrl" jdbcType="VARCHAR" />
+        <result column="news_url" property="newsUrl" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <select id="getCount" resultType="java.lang.Integer">
+        select count(*) from promotion_picture where status=#{status}
+    </select>
+
+    <select id="getPromotionPic" resultType="com.irdc.shortvideo.VO.PromotionVO">
+        select picture_url as pictureUrl,news_url as newsUrl from shortVideo.promotion_picture where status=#{status} order by create_time desc
+    </select>
+</mapper>

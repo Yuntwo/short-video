@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.CommentsMapper" >
+  <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.Comments" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="video_id" property="videoId" jdbcType="VARCHAR" />
+    <result column="father_id" property="fatherId" jdbcType="VARCHAR" />
+    <result column="from_user_id" property="fromUserId" jdbcType="VARCHAR" />
+    <result column="content" property="content" jdbcType="VARCHAR" />
+    <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+    <result column="status" property="status" jdbcType="TINYINT" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+  <select id="addLikeNum" parameterType="String">
+    update comments set like_num=like_num+1 where comment_id=#{commentId}
+  </select>
+
+  <select id="reduceLikeNum" parameterType="String">
+    update comments set like_num=like_num-1 where comment_id=#{commentId}
+  </select>
+
+  <select id="queryPublisherIdByCommentId" parameterType="String" resultType="String">
+    select from_user_id from comments where comment_id=#{commentId}
+  </select>
+
+    <select id="queryCommentsByVideoId" resultType="com.irdc.shortvideo.VO.CommentWithUserVO">
+      select * from comments c
+      left join users u on c.from_user_id = u.user_id
+      where c.video_id=#{videoId} and c.status = 0 and u.status != 2
+    </select>
+
+  <select id="queryCommentByCommentId" resultType="com.irdc.shortvideo.entity.Comments" resultMap="BaseResultMap">
+    select * from comments where comment_id = #{commentId} and status = 0
+  </select>
+
+</mapper>

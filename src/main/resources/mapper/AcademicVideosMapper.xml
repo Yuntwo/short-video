@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.AcademicVideosMapper" >
+    <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.AcademicVideos" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="academic_video_id" property="academicVideoId" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="website_url" property="websiteUrl" jdbcType="VARCHAR" />
+        <result column="video_cover_path" property="videoCoverPath" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="video_desc" property="videoDesc" jdbcType="VARCHAR" />
+        <result column="video_path" property="videoPath" jdbcType="VARCHAR" />
+        <result column="like_num" property="likeNum" jdbcType="BIGINT" />
+        <result column="comment_num" property="commentNum" jdbcType="BIGINT" />
+        <result column="forward_num" property="forwardNum" jdbcType="BIGINT" />
+        <result column="play_num" property="playNum" jdbcType="BIGINT" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="is_public" property="isPublic" jdbcType="TINYINT" />
+        <result column="tag" property="tag" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <resultMap id="SecondResultMap" type="com.irdc.shortvideo.VO.video.AcademicVideoVO" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="academic_video_id" property="academicVideoId" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="video_cover_path" property="videoCoverPath" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="video_desc" property="videoDesc" jdbcType="VARCHAR" />
+        <result column="video_path" property="videoPath" jdbcType="VARCHAR" />
+        <result column="website_url" property="websiteUrl" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="face_image" property="faceImage" jdbcType="VARCHAR" />
+        <result column="like_num" property="likeNum" jdbcType="BIGINT" />
+        <result column="comment_num" property="commentNum" jdbcType="BIGINT" />
+        <result column="forward_num" property="forwardNum" jdbcType="BIGINT" />
+        <result column="play_num" property="playNum" jdbcType="BIGINT" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="is_public" property="isPublic" jdbcType="TINYINT" />
+        <result column="tag" property="tag" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+
+        <result column="paper_title" property="paperTitle" jdbcType="VARCHAR" />
+        <result column="periodical" property="paperPeriodical" jdbcType="VARCHAR" />
+        <result column="index" property="paperIndex" jdbcType="VARCHAR" />
+        <result column="publish_time" property="paperPublishTime" jdbcType="TIMESTAMP" />
+        <result column="paper_website_url" property="paperWebsiteUrl" jdbcType="VARCHAR" />
+    </resultMap>
+
+    <resultMap id="ThirdResultMap" type="com.irdc.shortvideo.VO.video.AcademicVideoWithUserVO" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="academic_video_id" property="videoId" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+        <result column="video_cover_path" property="videoCoverPath" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="video_desc" property="videoDesc" jdbcType="VARCHAR" />
+        <result column="video_path" property="videoPath" jdbcType="VARCHAR" />
+        <result column="username" property="username" jdbcType="VARCHAR" />
+        <result column="face_image" property="faceImage" jdbcType="VARCHAR" />
+        <result column="like_num" property="likeNum" jdbcType="BIGINT" />
+        <result column="comment_num" property="commentNum" jdbcType="BIGINT" />
+        <result column="forward_num" property="forwardNum" jdbcType="BIGINT" />
+        <result column="play_num" property="playNum" jdbcType="BIGINT" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="is_public" property="isPublic" jdbcType="TINYINT" />
+        <result column="tag" property="tag" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <update id="addCommentNum" parameterType="String">
+        update shortVideo.academic_videos set comment_num=comment_num+1 where academic_video_id=#{videoId}
+    </update>
+
+    <update id="updateScoreByAcademicVideoId">
+        update shortVideo.academic_videos set score=#{score} where academic_video_id=#{academicVideoId}
+    </update>
+
+    <select id="queryAcademicVideoByVideoIdAndStatusAndIsPublic" resultType="com.irdc.shortvideo.entity.AcademicVideos" resultMap="BaseResultMap">
+        select * from academic_videos where academic_video_id=#{videoId} and status=#{status} and is_public=#{isPublic}
+    </select>
+
+    <select id="queryLikeNumByVideoId" resultType="java.lang.Long">
+        select like_num from shortVideo.academic_videos where academic_video_id=#{videoId}
+    </select>
+
+    <select id="getRecommendAcademicVideo" resultType="com.irdc.shortvideo.entity.AcademicVideos" resultMap="BaseResultMap">
+        select * from academic_videos where status=1 and is_public=1 order by create_time desc
+    </select>
+
+    <select id="queryAcademicVideoByVideoIdAndStatus" resultType="com.irdc.shortvideo.entity.AcademicVideos" resultMap="BaseResultMap">
+        select * from academic_videos where academic_video_id=#{videoId} and status=#{status}
+    </select>
+
+    <select id="queryAcademicVideoByVideoId" resultType="com.irdc.shortvideo.entity.AcademicVideos" resultMap="BaseResultMap">
+        select * from academic_videos where academic_video_id=#{videoId}
+    </select>
+
+    <select id="queryAcademicVideoWithUserVOByVideoId" resultType="com.irdc.shortvideo.VO.video.AcademicVideoWithUserVO" resultMap="ThirdResultMap">
+        select v.*,u.username as username,u.face_image as face_image from academic_videos v
+        left join users u on v.user_id = u.user_id
+        where v.status = 1 and u.status != 2 and v.academic_video_id=#{videoId}
+    </select>
+
+    <select id="queryRecommendAcademicVideoWithUserVO" resultType="com.irdc.shortvideo.VO.video.AcademicVideoWithUserVO" resultMap="ThirdResultMap">
+        select v.*,u.username as username,u.face_image as face_image from academic_videos v
+        left join users u on v.user_id = u.user_id
+        where v.status = 1 and v.is_public = 1 and u.status != 2
+        order by v.score desc, v.create_time desc
+    </select>
+
+    <select id="queryAllVideos" resultType="com.irdc.shortvideo.entity.AcademicVideos" resultMap="BaseResultMap">
+        select * from shortVideo.academic_videos where is_public = 1
+    </select>
+
+
+</mapper>

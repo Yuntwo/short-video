@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.UserLikeCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.UserLikeComment" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="comment_id" property="commentId" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+    <select id="queryCommentLikeIsExists" resultType="com.irdc.shortvideo.entity.UserLikeComment">
+      select * from user_like_comment where comment_id=#{commentId} and user_id=#{userId}
+    </select>
+</mapper>

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.CommentsWithUsersMapper" >
+  <resultMap id="BaseResultMap" type="com.irdc.shortvideo.VO.CommentWithUserVO" >
+      <id column="comment_id" property="commentId" jdbcType="VARCHAR" />
+      <result column="video_id" property="videoId" jdbcType="VARCHAR" />
+      <result column="from_user_id" property="fromUserId" jdbcType="VARCHAR" />
+      <result column="from_user_face_img" property="fromUserFaceImg" jdbcType="VARCHAR" />
+      <result column="from_user_name" property="fromUserName" jdbcType="VARCHAR" />
+      <result column="father_id" property="fatherId" jdbcType="VARCHAR" />
+      <result column="father_name" property="fatherName" jdbcType="VARCHAR" />
+      <result column="father_face_img" property="fatherFaceImg" jdbcType="VARCHAR" />
+      <result column="content" property="content" jdbcType="VARCHAR" />
+      <result column="like_num" property="likeNum" jdbcType="INTEGER" />
+      <!--<result column="status" property="status" jdbcType="TINYINT" />-->
+      <result column="like_status" property="likeStatus" jdbcType="VARCHAR" />
+      <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+
+    <select id="queryCommentsByVideoId" resultMap="BaseResultMap">
+        select c.*,u.username as from_user_name,tu.username as father_name,
+        u.face_image as from_user_face_img,tu.face_image as father_face_img,l.comment_id as like_status
+        from comments c
+        left join users u on c.from_user_id = u.user_id
+        left join users tu on c.father_id = tu.user_id
+        left join user_like_comment l on l.user_id = #{userId} and l.comment_id = c.comment_id
+        where c.video_id=#{videoId} and c.status=0 and u.status != 2
+        order by c.create_time desc
+    </select>
+
+</mapper>

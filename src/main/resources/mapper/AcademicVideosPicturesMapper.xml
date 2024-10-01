@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.AcademicVideosPictureMapper" >
+    <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.AcademicVideosPicture" >
+        <id column="picture_id" property="pictureId" jdbcType="VARCHAR" />
+        <result column="academic_videos_id" property="academicVideosId" jdbcType="VARCHAR" />
+        <result column="url" property="url" jdbcType="VARCHAR" />
+        <result column="sort" property="sort" jdbcType="TINYINT" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+
+    <update id="updateAllPictureStatusByVideoId">
+        update academic_videos_picture set status=#{status} where academic_videos_id=#{videoId}
+    </update>
+
+    <select id="queryAcademicPictureInfoVOByVideoId"
+            resultType="com.irdc.shortvideo.VO.video.AcademicPictureInfoVO" resultMap="BaseResultMap">
+        select url, sort from academic_videos_picture where status=0 and academic_videos_id = #{videoId}
+    </select>
+
+
+</mapper>

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.irdc.shortvideo.mapper.PaperMapper" >
+    <resultMap id="BaseResultMap" type="com.irdc.shortvideo.entity.Paper" >
+        <!--
+          WARNING - @mbg.generated
+        -->
+        <id column="paper_id" property="paperId" jdbcType="VARCHAR" />
+        <result column="academic_video_id" property="academicVideoId" jdbcType="VARCHAR" />
+        <result column="title" property="title" jdbcType="VARCHAR" />
+        <result column="periodical" property="periodical" jdbcType="VARCHAR" />
+        <result column="index" property="index" jdbcType="VARCHAR" />
+        <result column="text" property="text" jdbcType="VARCHAR" />
+        <result column="publish_time" property="publishTime" jdbcType="TIMESTAMP" />
+        <result column="website_url" property="websiteUrl" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="TINYINT" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+
+    <insert id="insertPaper" parameterType="com.irdc.shortvideo.entity.Paper" keyProperty="paper_id">
+        insert into paper(
+        <if test="paperId != null and paperId != ''">paper_id,</if>
+        <if test="academicVideoId != null and academicVideoId != ''">academic_video_id,</if>
+        <if test="title != null and title != ''">title,</if>
+        <if test="periodical != null and periodical != ''">periodical,</if>
+        <if test="text != null and text != ''">text,</if>
+        <if test="index != null and index != ''">`index`,</if>
+        <if test="publishTime != null">publish_time,</if>
+        <if test="websiteUrl != null and websiteUrl != ''">website_url,</if>
+        <if test="status != null and status != ''">`status`,</if>
+        create_time
+        )values (
+        <if test="paperId != null and paperId != ''">#{paperId},</if>
+        <if test="academicVideoId != null and academicVideoId != ''">#{academicVideoId},</if>
+        <if test="title != null and title != ''">#{title},</if>
+        <if test="periodical != null and periodical != ''">#{periodical},</if>
+        <if test="text != null and text != ''">#{text},</if>
+        <if test="index != null and index != ''">#{index},</if>
+        <if test="publishTime != null">#{publishTime},</if>
+        <if test="websiteUrl != null and websiteUrl != ''">#{websiteUrl},</if>
+        <if test="status != null and status != ''">#{status},</if>
+        sysdate()
+      )
+    </insert>
+
+    <update id="updatePaper" parameterType="com.irdc.shortvideo.entity.Paper">
+        update paper
+        <set>
+            <if test="academicVideoId != null and academicVideoId != ''">academic_video_id = #{academicVideoId},</if>
+            <if test="title != null and title != ''">title = #{title},</if>
+            <if test="periodical != null and periodical != ''">periodical = #{periodical},</if>
+            <if test="text != null and text != ''">text = #{text},</if>
+            <if test="index != null and index != ''">`index` = #{index},</if>
+            <if test="publishTime != null">publish_time = #{publishTime},</if>
+            <if test="websiteUrl != null and websiteUrl != ''">website_url = #{websiteUrl},</if>
+            <if test="status != null and status != ''">`status` = #{status},</if>
+        </set>
+        where paper_id = #{paperId}
+    </update>
+
+
+    <delete id="delPaperByAcademicVideoId">
+        delete from shortVideo.academic_videos where academic_video_id=#{academicVideoId}
+    </delete>
+
+    <select id="queryPaperByAcademicVideoId" resultType="com.irdc.shortvideo.entity.Paper" resultMap="BaseResultMap">
+        select * from paper where academic_video_id=#{academicVideoId} and status=0
+    </select>
+
+
+</mapper>
